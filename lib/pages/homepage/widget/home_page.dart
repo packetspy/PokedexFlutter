@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
               left: screenWidth - (sizePokeball / 1.6),
               child: Opacity(
                 child: Image.asset(
-                  Constants.pokeballBlack,
+                  ConstantsImages.pokeballBlack,
                   height: sizePokeball,
                   width: sizePokeball,
                 ),
