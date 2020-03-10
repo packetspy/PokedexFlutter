@@ -1,5 +1,5 @@
 class ConstantsApi {
-  static String pokeapiURL =
+  static String pokedexApiUrl =
       'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json';
 }
 
