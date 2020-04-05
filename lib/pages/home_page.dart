@@ -3,9 +3,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex/models/pokemons_api.model.dart';
-import 'package:pokedex/pages/homepage/widget/app_bar_home.dart';
-import 'package:pokedex/pages/homepage/widget/pokemon_detail_page.dart';
-import 'package:pokedex/pages/homepage/widget/pokemon_item.dart';
+import 'package:pokedex/pages/widget/app_bar_home.dart';
+import 'package:pokedex/pages/pokemon_detail_page.dart';
+import 'package:pokedex/pages/widget/pokemon_item.dart';
 import 'package:pokedex/shared/constants.dart';
 import 'package:pokedex/stores/pokedex.store.dart';
 

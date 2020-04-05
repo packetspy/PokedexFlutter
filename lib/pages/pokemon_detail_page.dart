@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -5,6 +7,8 @@ import 'package:get_it/get_it.dart';
 import 'package:pokedex/models/pokemons_api.model.dart';
 import 'package:pokedex/shared/constants.dart';
 import 'package:pokedex/stores/pokedex.store.dart';
+import 'package:simple_animations/simple_animations/controlled_animation.dart';
+import 'package:simple_animations/simple_animations/multi_track_tween.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
 class PokemonDetailPage extends StatefulWidget {
@@ -20,6 +24,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
   PageController _pageController;
   PokedexStore _pokedexStore;
   Pokemon _pokemonSelected;
+  MultiTrackTween _animation;
 
   @override
   void initState() {
@@ -27,6 +32,11 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
     _pageController = PageController(initialPage: widget.index);
     _pokedexStore = GetIt.instance<PokedexStore>();
     _pokemonSelected = _pokedexStore.getPokemonSelected;
+    _animation = MultiTrackTween([
+      Track('rotateTheBall').add(
+          Duration(seconds: 5), Tween(begin: 0.0, end: 5.0),
+          curve: Curves.linear)
+    ]);
   }
 
   @override
@@ -105,16 +115,26 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                     return Stack(
                       alignment: Alignment.center,
                       children: <Widget>[
-                        Hero(
-                          tag: count.toString(),
-                          child: Opacity(
-                            child: Image.asset(
-                              ConstantsImages.pokeballWhite,
-                              height: 400,
-                              width: 400,
-                            ),
-                            opacity: 0.2,
-                          ),
+                        ControlledAnimation(
+                          playback: Playback.LOOP,
+                          duration: _animation.duration,
+                          tween: _animation,
+                          builder: (context, animation) {
+                            return Transform.rotate(
+                              angle: animation['rotateTheBall'],
+                              child: Hero(
+                                tag: count.toString(),
+                                child: Opacity(
+                                  child: Image.asset(
+                                    ConstantsImages.pokeballWhite,
+                                    height: 400,
+                                    width: 400,
+                                  ),
+                                  opacity: 0.2,
+                                ),
+                              ),
+                            );
+                          },
                         ),
                         CachedNetworkImage(
                           height: 160,

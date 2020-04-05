@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pokedex/pages/homepage/home_page.dart';
+import 'package:pokedex/pages/home_page.dart';
 import 'package:pokedex/stores/pokedex.store.dart';
 
 void main() {
