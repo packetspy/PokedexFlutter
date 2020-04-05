@@ -14,8 +14,17 @@ abstract class _PokedexStore with Store {
   @observable
   PokemonsModel _pokemonsApi;
 
+  @observable
+  Pokemon _pokemonSelected;
+
+  @observable
+  Color colorPokemonSelected;
+
   @computed
   PokemonsModel get pokemonsApi => _pokemonsApi;
+
+  @computed
+  Pokemon get pokemonSelected => _pokemonSelected;
 
   @action
   fetchPokemonList() {
@@ -25,9 +34,19 @@ abstract class _PokedexStore with Store {
     });
   }
 
-  @action
-  getPokemon({int index}) {
+  Pokemon getPokemon({int index}) {
     return _pokemonsApi.pokemon[index];
+  }
+
+  Pokemon get getPokemonSelected {
+    return _pokemonSelected;
+  }
+
+  @action
+  setPokemonSelected({int index}) {
+    _pokemonSelected = _pokemonsApi.pokemon[index];
+    colorPokemonSelected =
+        ConstantsColors.getColorType(type: _pokemonSelected.type[0]);
   }
 
   @action

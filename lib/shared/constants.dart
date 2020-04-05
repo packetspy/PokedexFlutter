@@ -9,7 +9,9 @@ class ConstantsImages {
   static const String pokeballWhite = 'assets/images/pokeball_white.png';
   static const String pokeballBlack = 'assets/images/pokeball_dark.png';
   static const String pokeballColor = 'assets/images/pokeballColor.png';
+}
 
+class ConstantsColors {
   static Color getColorType({String type}) {
     switch (type) {
       case 'Normal':

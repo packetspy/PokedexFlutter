@@ -15,6 +15,12 @@ mixin _$PokedexStore on _PokedexStore, Store {
   PokemonsModel get pokemonsApi => (_$pokemonsApiComputed ??=
           Computed<PokemonsModel>(() => super.pokemonsApi))
       .value;
+  Computed<Pokemon> _$pokemonSelectedComputed;
+
+  @override
+  Pokemon get pokemonSelected => (_$pokemonSelectedComputed ??=
+          Computed<Pokemon>(() => super.pokemonSelected))
+      .value;
 
   final _$_pokemonsApiAtom = Atom(name: '_PokedexStore._pokemonsApi');
 
@@ -33,6 +39,43 @@ mixin _$PokedexStore on _PokedexStore, Store {
     }, _$_pokemonsApiAtom, name: '${_$_pokemonsApiAtom.name}_set');
   }
 
+  final _$_pokemonSelectedAtom = Atom(name: '_PokedexStore._pokemonSelected');
+
+  @override
+  Pokemon get _pokemonSelected {
+    _$_pokemonSelectedAtom.context.enforceReadPolicy(_$_pokemonSelectedAtom);
+    _$_pokemonSelectedAtom.reportObserved();
+    return super._pokemonSelected;
+  }
+
+  @override
+  set _pokemonSelected(Pokemon value) {
+    _$_pokemonSelectedAtom.context.conditionallyRunInAction(() {
+      super._pokemonSelected = value;
+      _$_pokemonSelectedAtom.reportChanged();
+    }, _$_pokemonSelectedAtom, name: '${_$_pokemonSelectedAtom.name}_set');
+  }
+
+  final _$colorPokemonSelectedAtom =
+      Atom(name: '_PokedexStore.colorPokemonSelected');
+
+  @override
+  Color get colorPokemonSelected {
+    _$colorPokemonSelectedAtom.context
+        .enforceReadPolicy(_$colorPokemonSelectedAtom);
+    _$colorPokemonSelectedAtom.reportObserved();
+    return super.colorPokemonSelected;
+  }
+
+  @override
+  set colorPokemonSelected(Color value) {
+    _$colorPokemonSelectedAtom.context.conditionallyRunInAction(() {
+      super.colorPokemonSelected = value;
+      _$colorPokemonSelectedAtom.reportChanged();
+    }, _$colorPokemonSelectedAtom,
+        name: '${_$colorPokemonSelectedAtom.name}_set');
+  }
+
   final _$_PokedexStoreActionController =
       ActionController(name: '_PokedexStore');
 
@@ -47,8 +90,29 @@ mixin _$PokedexStore on _PokedexStore, Store {
   }
 
   @override
+  dynamic setPokemonSelected({int index}) {
+    final _$actionInfo = _$_PokedexStoreActionController.startAction();
+    try {
+      return super.setPokemonSelected(index: index);
+    } finally {
+      _$_PokedexStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  Widget getImage({String numero}) {
+    final _$actionInfo = _$_PokedexStoreActionController.startAction();
+    try {
+      return super.getImage(numero: numero);
+    } finally {
+      _$_PokedexStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
-    final string = 'pokemonsApi: ${pokemonsApi.toString()}';
+    final string =
+        'colorPokemonSelected: ${colorPokemonSelected.toString()},pokemonsApi: ${pokemonsApi.toString()},pokemonSelected: ${pokemonSelected.toString()}';
     return '{$string}';
   }
 }

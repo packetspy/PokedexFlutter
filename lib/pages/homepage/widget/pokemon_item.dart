@@ -103,7 +103,7 @@ class PokemonItem extends StatelessWidget {
           ],
         ),
         decoration: BoxDecoration(
-          color: ConstantsImages.getColorType(type: types[0]),
+          color: ConstantsColors.getColorType(type: types[0]),
           borderRadius: BorderRadius.all(
             Radius.circular(20),
           ),

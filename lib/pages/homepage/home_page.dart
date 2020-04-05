@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pokedex/models/pokemons_api.model.dart';
 import 'package:pokedex/pages/homepage/widget/app_bar_home.dart';
+import 'package:pokedex/pages/homepage/widget/pokemon_detail_page.dart';
 import 'package:pokedex/pages/homepage/widget/pokemon_item.dart';
 import 'package:pokedex/shared/constants.dart';
 import 'package:pokedex/stores/pokedex.store.dart';
@@ -13,12 +15,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  PokedexStore pokedexStore;
+  PokedexStore _pokedexStore;
+
   @override
   void initState() {
     super.initState();
-    pokedexStore = PokedexStore();
-    pokedexStore.fetchPokemonList();
+    _pokedexStore = GetIt.instance<PokedexStore>();
+    if (_pokedexStore.pokemonsApi == null) {
+      _pokedexStore.fetchPokemonList();
+    }
   }
 
   @override
@@ -26,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     double sizePokeball = 240;
     double statusBarSize = MediaQuery.of(context).padding.top;
     double screenWidth = MediaQuery.of(context).size.width;
-    //PokemonsModel _pokemon = pokedexStore.pokemonsApi;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -57,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                       child: Observer(
                         name: 'ListaHomePage',
                         builder: (BuildContext context) {
-                          return (pokedexStore.pokemonsApi != null)
+                          return (_pokedexStore.pokemonsApi != null)
                               ? AnimationLimiter(
                                   child: GridView.builder(
                                       physics: BouncingScrollPhysics(),
@@ -66,10 +71,10 @@ class _HomePageState extends State<HomePage> {
                                       gridDelegate:
                                           new SliverGridDelegateWithFixedCrossAxisCount(
                                               crossAxisCount: 2),
-                                      itemCount: pokedexStore
+                                      itemCount: _pokedexStore
                                           .pokemonsApi.pokemon.length,
                                       itemBuilder: (context, index) {
-                                        Pokemon pokemon = pokedexStore
+                                        Pokemon pokemon = _pokedexStore
                                             .getPokemon(index: index);
                                         return AnimationConfiguration
                                             .staggeredGrid(
@@ -86,12 +91,17 @@ class _HomePageState extends State<HomePage> {
                                                     number: pokemon.num,
                                                   ),
                                                   onTap: () {
+                                                    _pokedexStore
+                                                        .setPokemonSelected(
+                                                            index: index);
                                                     Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
                                                             builder: (BuildContext
                                                                     context) =>
-                                                                Container() /*PokeDetailPage(index: index)*/,
+                                                                PokemonDetailPage(
+                                                                  index: index,
+                                                                ),
                                                             fullscreenDialog:
                                                                 true));
                                                   },
