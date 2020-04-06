@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -34,7 +32,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
     _pokemonSelected = _pokedexStore.getPokemonSelected;
     _animation = MultiTrackTween([
       Track('rotateTheBall').add(
-          Duration(seconds: 5), Tween(begin: 0.0, end: 5.0),
+          Duration(seconds: 7), Tween(begin: 0.0, end: 1.0),
           curve: Curves.linear)
     ]);
   }
@@ -100,9 +98,9 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
             },
           ),
           Padding(
-            padding: EdgeInsets.only(top: 50),
+            padding: EdgeInsets.only(top: 20),
             child: SizedBox(
-              height: 200,
+              height: 250,
               child: PageView.builder(
                   controller: _pageController,
                   onPageChanged: (index) {
@@ -121,16 +119,17 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                           tween: _animation,
                           builder: (context, animation) {
                             return Transform.rotate(
-                              angle: animation['rotateTheBall'],
+                              alignment: FractionalOffset.center,
+                              angle: animation['rotateTheBall'] * 6.3,
                               child: Hero(
                                 tag: count.toString(),
                                 child: Opacity(
                                   child: Image.asset(
-                                    ConstantsImages.pokeballWhite,
+                                    ConstantsImages.pokeballBlack,
                                     height: 400,
                                     width: 400,
                                   ),
-                                  opacity: 0.2,
+                                  opacity: 0.1,
                                 ),
                               ),
                             );
