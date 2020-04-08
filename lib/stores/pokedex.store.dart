@@ -20,6 +20,9 @@ abstract class _PokedexStore with Store {
   @observable
   Color colorPokemonSelected;
 
+  @observable
+  int pokemonPosition;
+
   @computed
   PokemonsModel get pokemonsApi => _pokemonsApi;
 
@@ -47,6 +50,7 @@ abstract class _PokedexStore with Store {
     _pokemonSelected = _pokemonsApi.pokemon[index];
     colorPokemonSelected =
         ConstantsColors.getColorType(type: _pokemonSelected.type[0]);
+    pokemonPosition = index;
   }
 
   @action

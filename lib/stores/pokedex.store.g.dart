@@ -76,6 +76,23 @@ mixin _$PokedexStore on _PokedexStore, Store {
         name: '${_$colorPokemonSelectedAtom.name}_set');
   }
 
+  final _$pokemonPositionAtom = Atom(name: '_PokedexStore.pokemonPosition');
+
+  @override
+  int get pokemonPosition {
+    _$pokemonPositionAtom.context.enforceReadPolicy(_$pokemonPositionAtom);
+    _$pokemonPositionAtom.reportObserved();
+    return super.pokemonPosition;
+  }
+
+  @override
+  set pokemonPosition(int value) {
+    _$pokemonPositionAtom.context.conditionallyRunInAction(() {
+      super.pokemonPosition = value;
+      _$pokemonPositionAtom.reportChanged();
+    }, _$pokemonPositionAtom, name: '${_$pokemonPositionAtom.name}_set');
+  }
+
   final _$_PokedexStoreActionController =
       ActionController(name: '_PokedexStore');
 
@@ -112,7 +129,7 @@ mixin _$PokedexStore on _PokedexStore, Store {
   @override
   String toString() {
     final string =
-        'colorPokemonSelected: ${colorPokemonSelected.toString()},pokemonsApi: ${pokemonsApi.toString()},pokemonSelected: ${pokemonSelected.toString()}';
+        'colorPokemonSelected: ${colorPokemonSelected.toString()},pokemonPosition: ${pokemonPosition.toString()},pokemonsApi: ${pokemonsApi.toString()},pokemonSelected: ${pokemonSelected.toString()}';
     return '{$string}';
   }
 }

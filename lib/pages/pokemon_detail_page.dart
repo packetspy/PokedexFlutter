@@ -107,9 +107,9 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                     _pokedexStore.setPokemonSelected(index: index);
                   },
                   itemCount: _pokedexStore.pokemonsApi.pokemon.length,
-                  itemBuilder: (BuildContext context, int count) {
+                  itemBuilder: (BuildContext context, int index) {
                     Pokemon _pokemonItem =
-                        _pokedexStore.getPokemon(index: count);
+                        _pokedexStore.getPokemon(index: index);
                     return Stack(
                       alignment: Alignment.center,
                       children: <Widget>[
@@ -122,10 +122,10 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                               alignment: FractionalOffset.center,
                               angle: animation['rotateTheBall'] * 6.3,
                               child: Hero(
-                                tag: count.toString(),
+                                tag: index.toString(),
                                 child: Opacity(
                                   child: Image.asset(
-                                    ConstantsImages.pokeballBlack,
+                                    ConstantsImages.pokeballWhite,
                                     height: 400,
                                     width: 400,
                                   ),
@@ -135,15 +135,28 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                             );
                           },
                         ),
-                        CachedNetworkImage(
-                          height: 160,
-                          width: 160,
-                          placeholder: (context, url) => new Container(
-                            color: Colors.transparent,
-                          ),
-                          imageUrl:
-                              'https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${_pokemonItem.num}.png',
-                        ),
+                        Observer(builder: (context) {
+                          return AnimatedPadding(
+                            duration: Duration(milliseconds: 400),
+                            curve: Curves.easeInOutCubic,
+                            padding: EdgeInsets.all(
+                                index == _pokedexStore.pokemonPosition
+                                    ? 0
+                                    : 90),
+                            child: CachedNetworkImage(
+                              height: 160,
+                              width: 160,
+                              placeholder: (context, url) => new Container(
+                                color: Colors.transparent,
+                              ),
+                              color: index == _pokedexStore.pokemonPosition
+                                  ? null
+                                  : Colors.black.withOpacity(0.5),
+                              imageUrl:
+                                  'https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${_pokemonItem.num}.png',
+                            ),
+                          );
+                        }),
                       ],
                     );
                   }),
