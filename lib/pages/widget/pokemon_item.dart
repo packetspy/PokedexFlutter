@@ -79,25 +79,32 @@ class PokemonItem extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: Opacity(
-                child: Image.asset(
-                  ConstantsImages.pokeballWhite,
-                  height: 80,
-                  width: 80,
+              child: Hero(
+                tag: name + 'rotation',
+                child: Opacity(
+                  child: Image.asset(
+                    ConstantsImages.pokeballWhite,
+                    height: 80,
+                    width: 80,
+                  ),
+                  opacity: 0.2,
                 ),
-                opacity: 0.2,
               ),
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: CachedNetworkImage(
-                height: 120,
-                width: 120,
-                placeholder: (context, url) => new Container(
-                  color: Colors.transparent,
+              child: Hero(
+                tag: name,
+                child: CachedNetworkImage(
+                  alignment: Alignment.bottomRight,
+                  height: 120,
+                  width: 120,
+                  placeholder: (context, url) => new Container(
+                    color: Colors.transparent,
+                  ),
+                  imageUrl:
+                      'https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/$number.png',
                 ),
-                imageUrl:
-                    'https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/$number.png',
               ),
             ),
           ],
