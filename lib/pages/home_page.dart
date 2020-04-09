@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
           overflow: Overflow.visible,
           children: <Widget>[
             Positioned(
-              top: -(sizePokeball / 4.7),
+              top: statusBarSize - (sizePokeball / 3.2),
               left: screenWidth - (sizePokeball / 1.6),
               child: Opacity(
                 child: Image.asset(
