@@ -1,4 +1,4 @@
-package com.example.pokedex
+package dev.packetspy.pokedex
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
