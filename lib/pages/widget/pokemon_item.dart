@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:pokedex/models/layout_type_model.dart';
+import 'package:pokedex/pages/widget/pokemon_type.dart';
 import 'package:pokedex/shared/constants.dart';
 
 class PokemonItem extends StatelessWidget {
@@ -13,42 +15,6 @@ class PokemonItem extends StatelessWidget {
   const PokemonItem(
       {Key key, this.index, this.name, this.color, this.types, this.number})
       : super(key: key);
-
-  Widget setTipos() {
-    List<Widget> lista = [];
-    types.forEach((nome) {
-      lista.add(
-        Column(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(0),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Color.fromARGB(80, 255, 255, 255)),
-              child: Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: Text(
-                  nome.trim(),
-                  style: TextStyle(
-                      fontFamily: 'Google',
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            )
-          ],
-        ),
-      );
-    });
-    return Column(
-      children: lista,
-      crossAxisAlignment: CrossAxisAlignment.start,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +39,10 @@ class PokemonItem extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: setTipos(),
+                  child: PokemonType(
+                    types: types,
+                    orientation: LayoutType.vertical,
+                  ),
                 ),
               ],
             ),

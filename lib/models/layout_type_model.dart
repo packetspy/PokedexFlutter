@@ -1,0 +1,4 @@
+enum LayoutType {
+  horizontal,
+  vertical,
+}
