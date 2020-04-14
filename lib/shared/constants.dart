@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 class ConstantsApi {
   static String pokedexApiUrl =
       'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json';
+  static String pokedexApiV2Url = 'https://pokeapi.co/api/v2/pokemon/';
+  static String pokedexApiV2SpeciesUrl =
+      'https://pokeapi.co/api/v2/pokemon-species/';
 }
 
 class ConstantsImages {

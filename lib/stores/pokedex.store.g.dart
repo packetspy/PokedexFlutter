@@ -56,24 +56,24 @@ mixin _$PokedexStore on _PokedexStore, Store {
     }, _$_pokemonSelectedAtom, name: '${_$_pokemonSelectedAtom.name}_set');
   }
 
-  final _$colorPokemonSelectedAtom =
-      Atom(name: '_PokedexStore.colorPokemonSelected');
+  final _$pokemonSelectedColorAtom =
+      Atom(name: '_PokedexStore.pokemonSelectedColor');
 
   @override
-  Color get colorPokemonSelected {
-    _$colorPokemonSelectedAtom.context
-        .enforceReadPolicy(_$colorPokemonSelectedAtom);
-    _$colorPokemonSelectedAtom.reportObserved();
-    return super.colorPokemonSelected;
+  Color get pokemonSelectedColor {
+    _$pokemonSelectedColorAtom.context
+        .enforceReadPolicy(_$pokemonSelectedColorAtom);
+    _$pokemonSelectedColorAtom.reportObserved();
+    return super.pokemonSelectedColor;
   }
 
   @override
-  set colorPokemonSelected(Color value) {
-    _$colorPokemonSelectedAtom.context.conditionallyRunInAction(() {
-      super.colorPokemonSelected = value;
-      _$colorPokemonSelectedAtom.reportChanged();
-    }, _$colorPokemonSelectedAtom,
-        name: '${_$colorPokemonSelectedAtom.name}_set');
+  set pokemonSelectedColor(Color value) {
+    _$pokemonSelectedColorAtom.context.conditionallyRunInAction(() {
+      super.pokemonSelectedColor = value;
+      _$pokemonSelectedColorAtom.reportChanged();
+    }, _$pokemonSelectedColorAtom,
+        name: '${_$pokemonSelectedColorAtom.name}_set');
   }
 
   final _$pokemonPositionAtom = Atom(name: '_PokedexStore.pokemonPosition');
@@ -129,7 +129,7 @@ mixin _$PokedexStore on _PokedexStore, Store {
   @override
   String toString() {
     final string =
-        'colorPokemonSelected: ${colorPokemonSelected.toString()},pokemonPosition: ${pokemonPosition.toString()},pokemonsApi: ${pokemonsApi.toString()},pokemonSelected: ${pokemonSelected.toString()}';
+        'pokemonSelectedColor: ${pokemonSelectedColor.toString()},pokemonPosition: ${pokemonPosition.toString()},pokemonsApi: ${pokemonsApi.toString()},pokemonSelected: ${pokemonSelected.toString()}';
     return '{$string}';
   }
 }

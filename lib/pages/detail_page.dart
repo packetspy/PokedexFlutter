@@ -4,26 +4,28 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex/models/layout_type_model.dart';
 import 'package:pokedex/models/pokemons_api.model.dart';
+import 'package:pokedex/pages/about_page.dart';
 import 'package:pokedex/pages/widget/pokemon_type.dart';
 import 'package:pokedex/shared/constants.dart';
 import 'package:pokedex/stores/pokedex.store.dart';
+import 'package:pokedex/stores/pokedexV2.store.dart';
 import 'package:simple_animations/simple_animations/controlled_animation.dart';
 import 'package:simple_animations/simple_animations/multi_track_tween.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
-class PokemonDetailPage extends StatefulWidget {
+class DetailPage extends StatefulWidget {
   final int index;
 
-  PokemonDetailPage({Key key, this.index}) : super(key: key);
+  DetailPage({Key key, this.index}) : super(key: key);
 
   @override
-  _PokemonDetailPageState createState() => _PokemonDetailPageState();
+  _DetailPageState createState() => _DetailPageState();
 }
 
-class _PokemonDetailPageState extends State<PokemonDetailPage> {
+class _DetailPageState extends State<DetailPage> {
   PageController _pageController;
   PokedexStore _pokedexStore;
-  //Pokemon _pokemonSelected;
+  PokedexV2Store _pokedexV2Store;
   MultiTrackTween _animation;
   double _progress;
   double _multiple;
@@ -37,7 +39,9 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
     _pageController =
         PageController(initialPage: widget.index, viewportFraction: 0.5);
     _pokedexStore = GetIt.instance<PokedexStore>();
-    //_pokemonSelected = _pokedexStore.getPokemonSelected;
+    _pokedexV2Store = GetIt.instance<PokedexV2Store>();
+    _pokedexV2Store.getInfoPokemon(_pokedexStore.pokemonSelected.name);
+    _pokedexV2Store.getInfoSpecie(_pokedexStore.pokemonSelected.id.toString());
     _animation = MultiTrackTween([
       Track('rotateTheBall').add(
           Duration(seconds: 7), Tween(begin: 0.0, end: 1.0),
@@ -67,8 +71,15 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
           Observer(
             builder: (context) {
               return AnimatedContainer(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                      _pokedexStore.pokemonSelectedColor,
+                      _pokedexStore.pokemonSelectedColor.withOpacity(0.6)
+                    ])),
                 duration: Duration(milliseconds: _transitionBackround),
-                color: _pokedexStore.colorPokemonSelected,
                 child: Stack(
                   children: <Widget>[
                     AppBar(
@@ -96,7 +107,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                           _progress *
                               ((MediaQuery.of(context).size.height / 3) * 0.60),
                       child: Text(
-                        _pokedexStore.getPokemonSelected.name,
+                        _pokedexStore.pokemonSelected.name,
                         style: TextStyle(
                             fontFamily: 'Google',
                             fontWeight: FontWeight.bold,
@@ -118,11 +129,11 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               PokemonType(
-                                types: _pokedexStore.getPokemonSelected.type,
+                                types: _pokedexStore.pokemonSelected.type,
                                 orientation: LayoutType.horizontal,
                               ),
                               Text(
-                                "#${_pokedexStore.getPokemonSelected.num.toString()}",
+                                "#${_pokedexStore.pokemonSelected.num.toString()}",
                                 style: TextStyle(
                                     fontFamily: 'Google',
                                     fontWeight: FontWeight.bold,
@@ -158,7 +169,9 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
             ),
             builder: (context, state) {
               return Container(
-                height: MediaQuery.of(context).size.height,
+                height: MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).size.height * 0.15,
+                child: AboutPage(),
               );
             },
           ),
@@ -176,6 +189,10 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                     controller: _pageController,
                     onPageChanged: (index) {
                       _pokedexStore.setPokemonSelected(index: index);
+                      _pokedexV2Store
+                          .getInfoPokemon(_pokedexStore.pokemonSelected.name);
+                      _pokedexV2Store.getInfoSpecie(
+                          _pokedexStore.pokemonSelected.id.toString());
                     },
                     itemCount: _pokedexStore.pokemonsApi.pokemon.length,
                     itemBuilder: (BuildContext context, int index) {
