@@ -14,8 +14,11 @@ flutter packages pub run build_runner watch
 
 ###publica apk
 flutter clean && flutter build apk --release
-output: D:\projetos\study\pokedex\build\app\outputs\apk
+output: D:\projetos\study\pokedex\build\app\outputs\apk\release
 
 ###Permitir Android acessar internet
 android/app/src/main/AndroidManifest.xml
 [<uses-permission android:name="android.permission.INTERNET" />]
+
+###Links Utéis
+https://www.pokemon.com/us/pokedex/

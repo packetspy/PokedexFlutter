@@ -6,6 +6,9 @@ class ConstantsApi {
   static String pokedexApiV2Url = 'https://pokeapi.co/api/v2/pokemon/';
   static String pokedexApiV2SpeciesUrl =
       'https://pokeapi.co/api/v2/pokemon-species/';
+
+  static String pokemonImageUrl =
+      'https://assets.pokemon.com/assets/cms2/img/pokedex/detail';
 }
 
 class ConstantsImages {
