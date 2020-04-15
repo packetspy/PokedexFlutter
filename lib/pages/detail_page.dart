@@ -207,50 +207,62 @@ class _DetailPageState extends State<DetailPage> {
                             tween: _animation,
                             builder: (context, animation) {
                               return Transform.rotate(
-                                alignment: FractionalOffset.center,
                                 angle: animation['rotateTheBall'] * 6.3,
-                                child: Hero(
-                                  tag: _pokemonItem.name + 'rotation',
-                                  child: Opacity(
-                                    child: Image.asset(
-                                      ConstantsImages.pokeballWhite,
-                                      height: 200,
-                                      width: 200,
-                                    ),
-                                    opacity:
-                                        index == _pokedexStore.pokemonPosition
-                                            ? 0.1
-                                            : 0,
+                                child: AnimatedOpacity(
+                                  duration: Duration(milliseconds: 200),
+                                  child: Image.asset(
+                                    ConstantsImages.pokeballWhite,
+                                    height: 200,
+                                    width: 200,
                                   ),
+                                  opacity:
+                                      index == _pokedexStore.pokemonPosition
+                                          ? 0.1
+                                          : 0,
                                 ),
                               );
                             },
                           ),
-                          Observer(builder: (context) {
-                            return AnimatedPadding(
-                              duration: Duration(milliseconds: 400),
-                              curve: Curves.easeInOutCubic,
-                              padding: EdgeInsets.all(
-                                  index == _pokedexStore.pokemonPosition
-                                      ? 0
-                                      : 60),
-                              child: Hero(
-                                tag: _pokemonItem.name,
-                                child: CachedNetworkImage(
-                                  height: 160,
-                                  width: 160,
-                                  placeholder: (context, url) => new Container(
-                                    color: Colors.transparent,
+                          IgnorePointer(
+                            child: Observer(builder: (context) {
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  AnimatedPadding(
+                                    duration: Duration(milliseconds: 400),
+                                    curve: Curves.easeInOutCubic,
+                                    padding: EdgeInsets.only(
+                                        top: index ==
+                                                _pokedexStore.pokemonPosition
+                                            ? 0
+                                            : 60,
+                                        bottom: index ==
+                                                _pokedexStore.pokemonPosition
+                                            ? 0
+                                            : 60),
+                                    child: Hero(
+                                      tag: _pokemonItem.name,
+                                      child: CachedNetworkImage(
+                                        height: 160,
+                                        width: 160,
+                                        placeholder: (context, url) =>
+                                            new Container(
+                                          color: Colors.transparent,
+                                        ),
+                                        color: index ==
+                                                _pokedexStore.pokemonPosition
+                                            ? null
+                                            : Colors.black.withOpacity(0.5),
+                                        imageUrl:
+                                            'https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${_pokemonItem.num}.png',
+                                      ),
+                                    ),
                                   ),
-                                  color: index == _pokedexStore.pokemonPosition
-                                      ? null
-                                      : Colors.black.withOpacity(0.5),
-                                  imageUrl:
-                                      'https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${_pokemonItem.num}.png',
-                                ),
-                              ),
-                            );
-                          }),
+                                ],
+                              );
+                            }),
+                          ),
                         ],
                       );
                     }),

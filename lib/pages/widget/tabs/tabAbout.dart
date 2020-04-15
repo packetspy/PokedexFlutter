@@ -30,22 +30,20 @@ class TabAbout extends StatelessWidget {
             Observer(builder: (context) {
               PokemonSpecieApiV2 _specie = _pokeApiV2Store.speciePokemon;
               return SizedBox(
-                  height: 70,
-                  child: SingleChildScrollView(
-                      child: _specie != null
-                          ? Text(
-                              _specie.flavorTextEntries
-                                  .where((item) => item.language.name == 'en')
-                                  .first
-                                  .flavorText,
-                              style: TextStyle(
-                                fontSize: 14,
-                              ),
-                            )
-                          : CircularProgressPokemon()));
+                  child: _specie != null
+                      ? Text(
+                          _specie.flavorTextEntries
+                              .where((item) => item.language.name == 'en')
+                              .first
+                              .flavorText,
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
+                        )
+                      : CircularProgressPokemon());
             }),
-            SizedBox(
-              height: 10,
+            Divider(
+              height: 50,
             ),
             Text(
               'Biology',
