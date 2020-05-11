@@ -55,7 +55,7 @@ abstract class _PokedexStore with Store {
       placeholder: (context, url) => new Container(
         color: Colors.transparent,
       ),
-      imageUrl: "${ConstantsApi.pokemonImageUrl} / $numero.png",
+      imageUrl: "${ConstantsApi.pokemonImageUrl}/$numero.png",
     );
   }
 
