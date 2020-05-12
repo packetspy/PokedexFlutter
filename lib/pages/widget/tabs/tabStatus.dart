@@ -25,15 +25,16 @@ class TabStatus extends StatelessWidget {
   }
 
   Color applyColor(int value) {
-    //TODO: Melhorar cores conforme as porcentagens
-    if (value <= 30) {
-      return HexColor("d8ebb5");
-    } else if (value <= 50) {
-      return HexColor("d9bf77");
-    } else if (value <= 80) {
-      return HexColor("639a67");
+    if (value <= 19) {
+      return HexColor("FF4000");
+    } else if (value <= 39) {
+      return HexColor("FF8000");
+    } else if (value <= 59) {
+      return HexColor("FFBF00");
+    } else if (value <= 79) {
+      return HexColor("3B7E4A");
     } else {
-      return HexColor("2b580c");
+      return HexColor("006AFF");
     }
   }
 
@@ -46,7 +47,7 @@ class TabStatus extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "${labelStat.capitalize()}: ",
+                "${labelStat.capsLock()}: ",
                 style: TextStyle(fontSize: 16, color: Colors.grey[600]),
               ),
             ],
